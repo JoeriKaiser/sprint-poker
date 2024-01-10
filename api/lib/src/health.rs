@@ -3,6 +3,8 @@ use actix_web::{
     HttpResponse,
 };
 
+pub const API_VERSION: &str = "v0.0.1";
+
 pub fn service(cfg: &mut ServiceConfig) {
     cfg.route("/health", web::get().to(health));
 }
@@ -10,6 +12,6 @@ pub fn service(cfg: &mut ServiceConfig) {
 async fn health() -> HttpResponse {
     tracing::info!("healthcheck requested");
     HttpResponse::Ok()
-        .append_header(("version", "0.0.1"))
+        .append_header(("version", API_VERSION))
         .finish()
 }
