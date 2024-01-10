@@ -10,6 +10,7 @@ async fn hello_world() -> &'static str {
 
 #[get("/version")]
 async fn version(db: actix_web::web::Data<sqlx::PgPool>) -> Result<String, actix_web::Error>{
+    tracing::info!("Getting version !");
     let result: Result<String, sqlx::Error> = sqlx::query_scalar("SELECT version()")
         .fetch_one(db.get_ref())
         .await;
@@ -24,6 +25,7 @@ async fn version(db: actix_web::web::Data<sqlx::PgPool>) -> Result<String, actix
 async fn actix_web(
     #[shuttle_shared_db::Postgres] pool: PgPool,
 ) -> ShuttleActixWeb<impl FnOnce(&mut ServiceConfig) + Send + Clone + 'static> {
+    tracing::info!("Starting Database!");
     pool.execute(include_str!("../../db/schema.sql"))
     .await
     .map_err(CustomError::new)?;
@@ -31,6 +33,7 @@ async fn actix_web(
     let config = move |cfg: &mut ServiceConfig| {
         cfg.app_data(pool).service(hello_world).service(version);
     };
+    tracing::info!("Database succesfully started !");
 
     Ok(config.into())
 }
