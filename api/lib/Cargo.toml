@@ -5,7 +5,7 @@ edition = "2021"
 
 [dependencies]
 # SHARED
-shared = { path = "../../shared" }
+shared = { path = "../../shared", features = ["backend"]}
 
 #UTILS
 async-trait = "0.1"

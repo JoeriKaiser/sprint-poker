@@ -1,12 +1,12 @@
+pub use postgres_user_repository::PostgresUserRepository;
+
 use shared::models::{
     CreateUser, User,
-    CreateSession, Session,
-    CreateTicket, Ticket,
-    CreateVote, Vote,
 };
 use uuid::Uuid;
 
-// USER
+mod postgres_user_repository;
+
 pub type UserError = String;
 pub type UserResult<T> = Result<T, UserError>;
 
@@ -16,40 +16,5 @@ pub trait UserRepository: Send + Sync + 'static {
     async fn get_user(&self, id: &Uuid) -> UserResult<User>;
     async fn create_user(&self, id: &CreateUser) -> UserResult<User>;
     async fn update_user(&self, id: &User) -> UserResult<User>;
-    async fn delete_user(&self, id: &Uuid) -> UserResult<User>;
-}
-
-// SESSION
-pub type SessionError = String;
-pub type SessionResult<T> = Result<T, SessionError>;
-
-#[async_trait::async_trait]
-pub trait SessionRepository: Send + Sync + 'static {
-    async fn get_session(&self, id: &Uuid) -> SessionResult<Session>;
-    async fn create_session(&self, id: &CreateSession) -> SessionResult<Session>;
-    async fn delete_session(&self, id: &Uuid) -> SessionResult<Session>;
-}
-
-// TICKET
-pub type TicketError = String;
-pub type TicketResult<T> = Result<T, TicketError>;
-
-#[async_trait::async_trait]
-pub trait TicketRepository: Send + Sync + 'static {
-    async fn get_users(&self) -> TicketResult<Vec<Ticket>>;
-    async fn get_user(&self, id: &Uuid) -> TicketResult<Ticket>;
-    async fn create_user(&self, id: &CreateTicket) -> TicketResult<Ticket>;
-    async fn update_user(&self, id: &Ticket) -> TicketResult<Ticket>;
-    async fn delete_user(&self, id: &Uuid) -> TicketResult<Ticket>;
-}
-
-// VOTE
-pub type VoteError = String;
-pub type VoteResult<T> = Result<T, VoteError>;
-
-#[async_trait::async_trait]
-pub trait VoteRepository: Send + Sync + 'static {
-    async fn get_session(&self, id: &Uuid) -> VoteResult<Vote>;
-    async fn create_session(&self, id: &CreateVote) -> VoteResult<Vote>;
-    async fn delete_session(&self, id: &Uuid) -> VoteResult<Vote>;
+    async fn delete_user(&self, id: &Uuid) -> UserResult<uuid::Uuid>;
 }
