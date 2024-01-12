@@ -10,7 +10,7 @@ pub fn service(cfg: &mut ServiceConfig) {
             .route("/{user_id}", web::get().to(get))
             .route("", web::post().to(post))
             .route("", web::post().to(put))
-            .route("/user_id", web::delete().to(delete))
+            .route("/{user_id}", web::delete().to(delete))
     );
 }
 
