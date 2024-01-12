@@ -1,3 +1,4 @@
+use chrono::format::Numeric;
 use uuid::Uuid;
 use serde::{Deserialize, Serialize};
 
@@ -19,6 +20,12 @@ pub struct Ticket {
     pub username: String,
     pub created_at: Option<chrono::DateTime<chrono::Utc>>,
 }
+
+pub struct Vote {
+    pub uuid: Uuid,
+    pub value: String,
+    pub created_at: Option<chrono::DateTime<chrono::Utc>>,
+}
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq, PartialOrd, Ord, Default)]
 pub struct CreateUser {
     pub username: String,
@@ -30,4 +37,8 @@ pub struct CreateSession {
 
 pub struct CreateTicket {
     pub ticket_name: String,
+}
+
+pub struct CreateVote {
+    pub vote_value: Numeric,
 }
