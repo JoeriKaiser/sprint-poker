@@ -13,6 +13,12 @@ pub struct Session {
     pub session_name: String,
     pub created_at: Option<chrono::DateTime<chrono::Utc>>,
 }
+
+pub struct Ticket {
+    pub uuid: Uuid,
+    pub username: String,
+    pub created_at: Option<chrono::DateTime<chrono::Utc>>,
+}
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq, PartialOrd, Ord, Default)]
 pub struct CreateUser {
     pub username: String,
@@ -20,4 +26,8 @@ pub struct CreateUser {
 
 pub struct CreateSession {
     pub session_name: String,
+}
+
+pub struct CreateTicket {
+    pub ticket_name: String,
 }

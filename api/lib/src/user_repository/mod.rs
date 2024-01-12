@@ -1,6 +1,8 @@
 use shared::models::{
     CreateUser, User,
-    CreateSession, Session};
+    CreateSession, Session,
+    CreateTicket, Ticket
+};
 use uuid::Uuid;
 
 // USER
@@ -25,4 +27,17 @@ pub trait SessionRepository: Send + Sync + 'static {
     async fn get_session(&self, id: &Uuid) -> SessionResult<Session>;
     async fn create_session(&self, id: &CreateSession) -> SessionResult<Session>;
     async fn delete_session(&self, id: &Uuid) -> SessionResult<Session>;
+}
+
+// TICKET
+pub type TicketError = String;
+pub type TicketResult<T> = Result<T, TicketError>;
+
+#[async_trait::async_trait]
+pub trait TicketRepository: Send + Sync + 'static {
+    async fn get_users(&self) -> TicketResult<Vec<Ticket>>;
+    async fn get_user(&self, id: &Uuid) -> TicketResult<Ticket>;
+    async fn create_user(&self, id: &CreateTicket) -> TicketResult<Ticket>;
+    async fn update_user(&self, id: &Ticket) -> TicketResult<Ticket>;
+    async fn delete_user(&self, id: &Uuid) -> TicketResult<Ticket>;
 }
