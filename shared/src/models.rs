@@ -3,12 +3,21 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq, PartialOrd, Ord, Default)]
 pub struct User {
-    pub uuid:Uuid,
+    pub uuid: Uuid,
     pub username: String,
-    // TODO fix timestamp
-    // pub created_at: Timestamp,
+    pub created_at: Option<chrono::DateTime<chrono::Utc>>,
+}
+
+pub struct Session {
+    pub uuid: Uuid,
+    pub session_name: String,
+    pub created_at: Option<chrono::DateTime<chrono::Utc>>,
 }
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq, PartialOrd, Ord, Default)]
 pub struct CreateUser {
     pub username: String,
+}
+
+pub struct CreateSession {
+    pub session_name: String,
 }
