@@ -25,6 +25,11 @@ async fn actix_web(
                 .configure(
                     api_lib::users::service::<api_lib::user_repository::PostgresUserRepository>,
                 ),
+        )
+        .service(
+            actix_files::Files::new("", "./api/shuttle/static")
+                .show_files_listing()
+                .index_file("index.html"),
         );
     };
 
