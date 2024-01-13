@@ -1,4 +1,4 @@
-use actix_web::web::ServiceConfig;
+use actix_web::web::{self, ServiceConfig};
 use shuttle_actix_web::ShuttleActixWeb;
 use shuttle_runtime::CustomError;
 use sqlx::{Executor, PgPool};
@@ -14,12 +14,18 @@ async fn actix_web(
     .map_err(CustomError::new)?;
 
     let user_repository = api_lib::user_repository::PostgresUserRepository::new(pool);
-    let user_repository = actix_web::web::Data::new(user_repository);
+    let user_repository: actix_web::web::Data<Box<dyn api_lib::user_repository::UserRepository>> =
+        actix_web::web::Data::new(Box::new(user_repository));
 
     let config = move |cfg: &mut ServiceConfig| {
-        cfg.app_data(user_repository)
-        .configure(api_lib::health::service)
-        .configure(api_lib::users::service);
+        cfg.service(
+            web::scope("/api")
+                .app_data(user_repository)
+                .configure(api_lib::health::service)
+                .configure(
+                    api_lib::users::service::<api_lib::user_repository::PostgresUserRepository>,
+                ),
+        );
     };
 
     tracing::info!("Database succesfully started !");
