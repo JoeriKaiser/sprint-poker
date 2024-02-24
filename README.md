@@ -7,7 +7,6 @@ This project is a comprehensive full-stack web application that integrates a rob
 At the core of our application, the backend is engineered with Actix-web, a high-speed web framework for Rust that emphasizes pragmatism and power. It utilizes SQLx to ensure safe and efficient database interactions. Designed to serve RESTful APIs, the backend supports the frontend with features like user authentication, seamless database migrations, and structured logging, all aimed at enhancing maintainability and scalability.
 
 ### Running the Backend Locally
-
 To initiate the backend on your local environment, please proceed to the `api/shuttle/src` directory. From there, execute the following commands:
 1. Ensure you have Rust and Cargo installed on your system. If not, visit https://www.rust-lang.org/tools/install to install them.
 2. Navigate to the `api/shuttle/src` directory in your terminal.
@@ -49,6 +48,8 @@ To run the frontend locally, follow these steps:
 2. Navigate to the `front` directory in your terminal.
 3. Run `npm install` to install the project dependencies.
 4. Execute `dx serve --port 8080` to start the development server. This command compiles the Rust code to WebAssembly and serves it on a local web server.
-5. Open your web browser and go to `http://localhost:8080` to view the frontend application. You should see the user interface rendered, indicating that the frontend is running correctly.
+5. In addition to starting the development server, you might want to launch the tailwind compiler using
+`npx tailwindcss -i ./input.css -o ./public/tailwind.css --watch`
+6. Open your web browser and go to `http://localhost:8080` to view the frontend application. You should see the user interface rendered, indicating that the frontend is running correctly.
 
 By following these steps, you can work on both the backend and frontend of the application simultaneously, allowing for a seamless full-stack development experience.
