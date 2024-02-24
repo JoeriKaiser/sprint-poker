@@ -15,10 +15,10 @@ pub fn Header(cx: Scope) -> Element {
                     // }
                     span { class: "ml-3 text-2xl", "Sprint poker"}
                 }
-                button {
-                    class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded",
-                    "Create Session"
-                }
+                // button {
+                //     class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded",
+                //     "Create Session"
+                // }
             }
         }
     ))
